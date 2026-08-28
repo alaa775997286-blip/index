@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏆 اختبار شامل - تصحيح فوري واضح</title>
+    <title>🏆 اختبار شامل 1-4 تصحيح فوري واضح</title>
     <style>
         * {
             margin: 0;
@@ -654,7 +654,7 @@
 </head>
 <body>
     <div class="container" id="app">
-        <h1>📘 اختبار تحليل الأنظمة (تصحيح فوري واضح)</h1>
+        <h1>📘 اختبار تحليل وتصميم الأنظمة (  1-4)</h1>
 
         <!-- حقل اسم المستخدم -->
         <div class="user-bar no-print">
@@ -1510,4 +1510,264 @@
                 currentQs.forEach((q, i) => { if (ansStatus[i] && userAns[i] === q.a) correct++; });
                 const pct = (correct / total) * 100;
                 const box = document.getElementById('resultBox');
-                box.classList.add('show')
+                box.classList.add('show');
+                document.getElementById('resultScore').innerHTML = `${pct.toFixed(1)} / 100 (غير مكتمل)`;
+                const avg = attemptsHistory.length ? (attemptsHistory.reduce((a, b) => a + b.percent, 0) / attemptsHistory
+                    .length).toFixed(2) : '0.00';
+                const name = getUserName();
+                document.getElementById('resultDetail').textContent =
+                    `👤 ${name} | 📌 لم تكتمل جميع الأسئلة بعد. | 📊 المعدل التراكمي (${attemptsHistory.length} محاولات): ${avg}`;
+                document.getElementById('resultFB').innerHTML = '';
+                return;
+            }
+            const box = document.getElementById('resultBox');
+            box.classList.add('show');
+            document.getElementById('resultScore').innerHTML = `${score.toFixed(1)} / 100`;
+            const avg = attemptsHistory.length ? (attemptsHistory.reduce((a, b) => a + b.percent, 0) / attemptsHistory.length)
+                .toFixed(2) : '0.00';
+            const name = getUserName();
+            document.getElementById('resultDetail').textContent =
+                `👤 ${name} | نسبة الإجابات الصحيحة: ${score.toFixed(1)}% — ${score>=80?'🌟 ممتاز!':score>=60?'✅ جيد':'📚 راجع'}  |  📊 المعدل التراكمي (${attemptsHistory.length} محاولات): ${avg}`;
+        }
+
+        // ============================================================
+        //  عرض التاريخ + الرسم البياني
+        // ============================================================
+        function toggleHistory() {
+            historyVisible = !historyVisible;
+            const panel = document.getElementById('historyPanel');
+            if (historyVisible) {
+                panel.classList.add('show');
+                renderHistoryTable();
+                renderChart();
+                document.getElementById('historyToggleBtn').textContent = '📋 إخفاء التاريخ';
+            } else {
+                panel.classList.remove('show');
+                document.getElementById('historyToggleBtn').textContent = '📋 عرض التاريخ';
+            }
+        }
+
+        function renderHistoryTable() {
+            const container = document.getElementById('historyContent');
+            if (!attemptsHistory.length) {
+                container.innerHTML = `<div class="empty-history">📭 لا توجد محاولات سابقة حتى الآن.</div>`;
+                document.getElementById('chartContainer').style.display = 'none';
+                return;
+            }
+            const name = getUserName();
+            let html =
+                `<div style="text-align:center;margin-bottom:10px;font-weight:600;color:#0f172a;">👤 ${name}</div>`;
+            html +=
+                `<table class="history-table"><thead><tr><th>#</th><th>التاريخ</th><th>عدد الأسئلة</th><th>الصحيح</th><th>النسبة</th><th>التقييم</th></tr></thead><tbody>`;
+            attemptsHistory.forEach((e, i) => {
+                const cls = e.percent >= 80 ? 'excellent' : (e.percent >= 60 ? 'good' : 'fail');
+                const txt = e.percent >= 80 ? 'ممتاز' : (e.percent >= 60 ? 'جيد' : 'راجع');
+                html +=
+                    `<tr><td>${i+1}</td><td>${e.date}</td><td>${e.total}</td><td>${e.correct}</td><td>${e.percent.toFixed(1)}%</td><td><span class="badge-grade ${cls}">${txt}</span></td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+            document.getElementById('chartContainer').style.display = attemptsHistory.length > 1 ? 'block' : 'none';
+        }
+
+        function renderChart() {
+            const canvas = document.getElementById('chartCanvas');
+            const ctx = canvas.getContext('2d');
+            const container = document.getElementById('chartContainer');
+            const width = container.clientWidth - 24;
+            const height = 200;
+            canvas.width = width * (window.devicePixelRatio || 1);
+            canvas.height = height * (window.devicePixelRatio || 1);
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+            const data = attemptsHistory;
+            if (data.length < 2) {
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '16px Segoe UI, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('📊 يحتاج إلى محاولتين على الأقل للرسم البياني', width / 2, height / 2);
+                return;
+            }
+
+            const padding = { top: 20, bottom: 30, left: 40, right: 20 };
+            const chartW = width - padding.left - padding.right;
+            const chartH = height - padding.top - padding.bottom;
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+
+            const maxY = 100;
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const yVal = (i / 4) * maxY;
+                const y = padding.top + chartH - (yVal / maxY) * chartH;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '11px Arial';
+                ctx.textAlign = 'right';
+                ctx.fillText(yVal + '%', padding.left - 8, y + 4);
+            }
+
+            const barWidth = Math.min(chartW / data.length * 0.6, 40);
+            const gap = (chartW - barWidth * data.length) / (data.length + 1);
+
+            data.forEach((entry, index) => {
+                const x = padding.left + gap + index * (barWidth + gap);
+                const barH = (entry.percent / maxY) * chartH;
+                const y = padding.top + chartH - barH;
+                let color = '#3b82f6';
+                if (entry.percent >= 80) color = '#22c55e';
+                else if (entry.percent >= 60) color = '#eab308';
+                else color = '#ef4444';
+                ctx.fillStyle = color;
+                ctx.shadowColor = 'rgba(0,0,0,0.1)';
+                ctx.shadowBlur = 4;
+                ctx.fillRect(x, y, barWidth, barH);
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = '#0f172a';
+                ctx.font = '11px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(entry.percent.toFixed(1) + '%', x + barWidth / 2, y - 6);
+                ctx.fillStyle = '#475569';
+                ctx.font = '10px Arial';
+                ctx.fillText('#' + (index + 1), x + barWidth / 2, padding.top + chartH + 16);
+            });
+
+            const avg = data.reduce((a, b) => a + b.percent, 0) / data.length;
+            const avgY = padding.top + chartH - (avg / maxY) * chartH;
+            ctx.strokeStyle = '#7c3aed';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 4]);
+            ctx.beginPath();
+            ctx.moveTo(padding.left, avgY);
+            ctx.lineTo(width - padding.right, avgY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#7c3aed';
+            ctx.font = 'bold 11px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText('📈 المعدل: ' + avg.toFixed(1) + '%', width - padding.right - 100, avgY - 6);
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'right';
+            ctx.fillText('👤 ' + getUserName(), width - padding.right, padding.top - 4);
+        }
+
+        // ============================================================
+        //  تصدير CSV
+        // ============================================================
+        function exportCSV() {
+            if (!attemptsHistory.length) { alert('لا توجد محاولات!'); return; }
+            const name = getUserName();
+            let csv = '\uFEFFاسم المستخدم,' + name + '\n';
+            csv += 'المحاولة,التاريخ,عدد الأسئلة,الإجابات الصحيحة,النسبة المئوية,التقييم\n';
+            attemptsHistory.forEach((e, i) => {
+                const g = e.percent >= 80 ? 'ممتاز' : (e.percent >= 60 ? 'جيد' : 'راجع');
+                csv += `${i+1},${e.date},${e.total},${e.correct},${e.percent.toFixed(1)}%,${g}\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `نتائج_${name}_الاختبار.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // ============================================================
+        //  طباعة النتيجة
+        // ============================================================
+        function printResult() {
+            const resultBox = document.getElementById('resultBox');
+            if (!resultBox.classList.contains('show')) {
+                if (finished) { showResult(true); } else { showResultOnDemand(); }
+            }
+            if (!historyVisible) { toggleHistory(); }
+            renderChart();
+            window.print();
+        }
+
+        // ============================================================
+        //  الأحداث
+        // ============================================================
+        document.getElementById('prevBtn').addEventListener('click', () => { if (curIdx > 0 && !finished) { curIdx--;
+                renderQ();
+                updateProg(); } });
+        document.getElementById('nextBtn').addEventListener('click', () => { if (curIdx < currentQs.length - 1 && !finished) {
+                curIdx++;
+                renderQ();
+                updateProg(); } });
+        document.getElementById('submitBtn').addEventListener('click', showResultOnDemand);
+        document.getElementById('resetBtn').addEventListener('click', resetTest);
+        document.getElementById('clearBtn').addEventListener('click', hardReset);
+        document.getElementById('historyToggleBtn').addEventListener('click', toggleHistory);
+        document.getElementById('exportBtn').addEventListener('click', exportCSV);
+        document.getElementById('printBtn').addEventListener('click', printResult);
+
+        // اسم المستخدم
+        document.getElementById('userNameSaveBtn').addEventListener('click', () => {
+            const val = document.getElementById('userNameInput').value;
+            saveUserName(val);
+        });
+        document.getElementById('userNameInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('userNameSaveBtn').click();
+            }
+        });
+
+        // الإعدادات
+        document.getElementById('chapterSelect').addEventListener('change', function() {
+            selectedChapter = this.value;
+            saveSettings();
+            localStorage.removeItem('examState_v10');
+            resetTest();
+        });
+        document.getElementById('countSelect').addEventListener('change', function() {
+            selectedCount = parseInt(this.value);
+            saveSettings();
+            localStorage.removeItem('examState_v10');
+            resetTest();
+        });
+
+        // ============================================================
+        //  التهيئة
+        // ============================================================
+        loadUserName();
+        loadSettings();
+        loadAttemptsHistory();
+        const loaded = loadState();
+        if (!loaded) {
+            const pool = getFilteredBank();
+            if (pool.length) {
+                const qCount = Math.min(selectedCount, pool.length);
+                currentQs = pickRandomQuestions(qCount);
+                userAns = new Array(currentQs.length).fill(-1);
+                ansStatus = new Array(currentQs.length).fill(false);
+                curIdx = 0;
+                finished = false;
+                score = 0;
+                attempt = 1;
+                document.getElementById('attemptNum').textContent = attempt;
+                const chLabel = selectedChapter === 'all' ? 'جميع الفصول' : `الفصل ${parseInt(selectedChapter)+1}`;
+                document.getElementById('chapterBadge').textContent = `🎯 ${chLabel}`;
+                renderNav();
+                renderQ();
+                updateProg();
+                saveState();
+            } else {
+                document.getElementById('qText').textContent = '⚠️ لا توجد أسئلة في هذا الفصل.';
+            }
+        }
+
+        window.addEventListener('resize', () => { if (historyVisible && attemptsHistory.length > 1) renderChart(); });
+    </script>
+</body>
+</html>
