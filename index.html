@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 اختبار شامل - تصحيح فوري واضح</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+        }
+        body {
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 860px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10);
+            padding: 25px 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            font-size: 24px;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+        .user-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            padding: 8px 18px;
+            border-radius: 40px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            border: 1px solid #e2e8f0;
+        }
+        .user-bar label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+        .user-bar input {
+            flex: 1;
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 14px;
+            color: #0f172a;
+            outline: none;
+            min-width: 120px;
+        }
+        .user-bar input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        .user-bar .user-save-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .user-bar .user-save-btn:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+        .sub-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .badge-blue {
+            background: #2563eb;
+            color: #fff;
+            padding: 2px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+        }
+        .score-preview {
+            background: #e2e8f0;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .score-preview .num {
+            color: #2563eb;
+            font-size: 18px;
+        }
+        .score-preview .avg {
+            color: #7c3aed;
+            font-size: 16px;
+        }
+        .progress-wrap {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .settings-bar {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: #f1f5f9;
+            padding: 12px 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+        }
+        .settings-bar label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+            margin-left: 6px;
+        }
+        .settings-bar select {
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0f172a;
+            cursor: pointer;
+            outline: none;
+        }
+        .settings-bar select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        .settings-bar .hint {
+            font-size: 13px;
+            color: #64748b;
+        }
+        .q-box {
+            background: #fafcff;
+            padding: 20px 22px;
+            border-radius: 18px;
+            border: 1px solid #e9eef3;
+            margin-bottom: 15px;
+        }
+        .q-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+        .q-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #0f172a;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+        .opts {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #fff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            border: 2px solid #e9eef3;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .opt:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
+        .opt input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2563eb;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .opt label {
+            font-size: 17px;
+            color: #1e293b;
+            cursor: pointer;
+            width: 100%;
+        }
+        .opt.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .opt.wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .opt.disabled {
+            pointer-events: none;
+            opacity: 0.9;
+        }
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            min-width: 100px;
+        }
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        .btn-success {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #16a34a;
+        }
+        .btn-warning {
+            background: #f59e0b;
+            color: #fff;
+        }
+        .btn-warning:hover {
+            background: #d97706;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .btn-purple {
+            background: #7c3aed;
+            color: #fff;
+        }
+        .btn-purple:hover {
+            background: #6d28d9;
+            transform: scale(1.02);
+        }
+        .btn-teal {
+            background: #14b8a6;
+            color: #fff;
+        }
+        .btn-teal:hover {
+            background: #0d9488;
+            transform: scale(1.02);
+        }
+        .btn-pink {
+            background: #ec4899;
+            color: #fff;
+        }
+        .btn-pink:hover {
+            background: #db2777;
+            transform: scale(1.02);
+        }
+        .btn-indigo {
+            background: #6366f1;
+            color: #fff;
+        }
+        .btn-indigo:hover {
+            background: #4f46e5;
+            transform: scale(1.02);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 2px solid #7c3aed;
+            display: none;
+            animation: fadeUp 0.4s;
+        }
+        .result-box.show {
+            display: block;
+        }
+        .result-score {
+            font-size: 38px;
+            font-weight: 800;
+            text-align: center;
+            color: #0f172a;
+        }
+        .result-detail {
+            text-align: center;
+            font-size: 16px;
+            color: #475569;
+            margin: 5px 0 12px;
+        }
+        .result-fb {
+            max-height: 180px;
+            overflow-y: auto;
+            background: #fff;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            text-align: right;
+        }
+        .fb-item {
+            padding: 4px 8px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .nav-nums {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin: 12px 0 8px;
+        }
+        .num-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            color: #334155;
+            transition: 0.2s;
+        }
+        .num-btn.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #2563eb;
+        }
+        .num-btn.answered {
+            background: #dbeafe;
+            border-color: #2563eb;
+        }
+        .num-btn.correct-ans {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .num-btn.wrong-ans {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .num-btn:hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+        .save-indicator {
+            font-size: 12px;
+            color: #22c55e;
+            background: #dcfce7;
+            padding: 2px 12px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+        .attempts-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+            background: #fff;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .attempts-stats span {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .attempts-stats .highlight {
+            color: #7c3aed;
+            font-size: 18px;
+        }
+        .history-panel {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 16px;
+            border: 2px solid #14b8a6;
+            padding: 15px;
+            display: none;
+            animation: fadeUp 0.4s;
+            max-height: 550px;
+            overflow-y: auto;
+        }
+        .history-panel.show {
+            display: block;
+        }
+        .history-panel h3 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 18px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+        }
+        .history-table th {
+            background: #f1f5f9;
+            padding: 8px 6px;
+            border-bottom: 2px solid #cbd5e1;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .history-table td {
+            padding: 6px;
+            border-bottom: 1px solid #e9eef3;
+            color: #334155;
+        }
+        .history-table tr:hover {
+            background: #f8fafc;
+        }
+        .history-table .badge-grade {
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .badge-grade.excellent {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        .badge-grade.good {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+        .badge-grade.fail {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .empty-history {
+            text-align: center;
+            color: #94a3b8;
+            padding: 20px;
+            font-size: 16px;
+        }
+        .chart-container {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            direction: ltr;
+            text-align: center;
+        }
+        .chart-container canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100%;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .container {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                border-radius: 0 !important;
+                padding: 15px !important;
+                max-width: 100% !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .user-bar .user-save-btn,
+            .user-bar input {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                font-weight: bold !important;
+            }
+            .user-bar label {
+                display: none !important;
+            }
+            .sub-bar .save-indicator,
+            .sub-bar .badge-blue,
+            .settings-bar,
+            .btn-row,
+            .nav-nums,
+            .q-box,
+            .progress-wrap {
+                display: none !important;
+            }
+            .result-box {
+                display: block !important;
+                border: 2px solid #000 !important;
+                background: #fff !important;
+                margin-top: 10px !important;
+            }
+            .history-panel {
+                display: block !important;
+                border: 1px solid #000 !important;
+                max-height: 100% !important;
+                overflow: visible !important;
+                background: #fff !important;
+            }
+            .history-panel .chart-container {
+                page-break-inside: avoid;
+            }
+            .attempts-stats {
+                border: 1px solid #000 !important;
+                background: #fafafa !important;
+            }
+            .footer {
+                display: none !important;
+            }
+            h1 {
+                border-bottom: 2px solid #000 !important;
+            }
+            .history-table th {
+                background: #e2e8f0 !important;
+                border-bottom: 2px solid #000 !important;
+            }
+            .history-table td {
+                border-bottom: 1px solid #ccc !important;
+            }
+            .result-fb {
+                max-height: 100% !important;
+                overflow: visible !important;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+            .q-text {
+                font-size: 17px;
+            }
+            .btn {
+                font-size: 13px;
+                padding: 8px 12px;
+                min-width: 70px;
+            }
+            .sub-bar {
+                font-size: 12px;
+            }
+            .settings-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .history-table {
+                font-size: 12px;
+            }
+            .history-table th,
+            .history-table td {
+                padding: 4px;
+            }
+            .user-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .user-bar input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <h1>📘 اختبار تحليل الأنظمة (تصحيح فوري واضح)</h1>
+
+        <!-- حقل اسم المستخدم -->
+        <div class="user-bar no-print">
+            <label for="userNameInput">👤 الاسم:</label>
+            <input type="text" id="userNameInput" placeholder="أدخل اسمك...">
+            <button class="user-save-btn" id="userNameSaveBtn">💾 حفظ</button>
+            <span style="font-size:12px;color:#94a3b8;">(يُحفظ تلقائياً)</span>
+        </div>
+
+        <!-- شريط الحالة العلوي -->
+        <div class="sub-bar">
+            <span>📋 <span id="totalQ">0</span> سؤال</span>
+            <span class="badge-blue" id="chapterBadge">🎯 جميع الفصول</span>
+            <span>👤 <span id="displayUserName">مستخدم</span></span>
+            <span>🔄 محاولة #<span id="attemptNum">1</span></span>
+            <span class="score-preview">⭐ <span id="liveScore" class="num">0.0</span> / 100</span>
+            <span class="save-indicator">💾 حفظ تلقائي</span>
+        </div>
+
+        <div class="settings-bar no-print">
+            <div>
+                <label for="chapterSelect">📚 الفصل:</label>
+                <select id="chapterSelect">
+                    <option value="all">جميع الفصول</option>
+                    <option value="0">الفصل الأول</option>
+                    <option value="1">الفصل الثاني</option>
+                    <option value="2">الفصل الثالث</option>
+                    <option value="3">الفصل الرابع</option>
+                </select>
+            </div>
+            <div>
+                <label for="countSelect">📝 عدد الأسئلة:</label>
+                <select id="countSelect">
+                    <option value="10">10 أسئلة</option>
+                    <option value="15">15 سؤالاً</option>
+                    <option value="20">20 سؤالاً</option>
+                    <option value="30" selected>30 سؤالاً</option>
+                    <option value="40">40 سؤالاً</option>
+                    <option value="50">50 سؤالاً</option>
+                </select>
+            </div>
+            <span class="hint">(يتغير الاختبار تلقائياً عند التعديل)</span>
+        </div>
+
+        <div class="attempts-stats" id="attemptStats">
+            <span>📊 عدد المحاولات: <span id="attemptCount" class="highlight">0</span></span>
+            <span>🏅 المعدل التراكمي: <span id="averageScore" class="highlight">0.00</span></span>
+            <span>⭐ أفضل نتيجة: <span id="bestScore" class="highlight">0.00</span></span>
+        </div>
+
+        <div class="progress-wrap no-print">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="nav-nums no-print" id="navNums"></div>
+
+        <div class="q-box no-print">
+            <div class="q-head">
+                <span id="qNum">السؤال 1 / 30</span>
+                <span id="qType" style="background:#dbeafe;padding:2px 14px;border-radius:40px;">صح/خطأ</span>
+            </div>
+            <div class="q-text" id="qText">جاري التحميل...</div>
+            <div class="opts" id="optsContainer"></div>
+        </div>
+
+        <div class="btn-row no-print">
+            <button class="btn btn-secondary" id="prevBtn">⬅ السابق</button>
+            <button class="btn btn-primary" id="nextBtn">التالي ➡</button>
+        </div>
+        <div class="btn-row no-print">
+            <button class="btn btn-purple" id="submitBtn">📊 عرض النتيجة والمعدل</button>
+            <button class="btn btn-warning" id="resetBtn">🔄 اختبار جديد</button>
+            <button class="btn btn-danger" id="clearBtn">🗑️ مسح الكل</button>
+        </div>
+        <div class="btn-row no-print">
+            <button class="btn btn-teal" id="historyToggleBtn">📋 عرض التاريخ</button>
+            <button class="btn btn-pink" id="exportBtn">📥 تصدير CSV</button>
+            <button class="btn btn-indigo" id="printBtn">🖨️ طباعة النتيجة</button>
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>📋 سجل المحاولات السابقة</h3>
+            <div id="historyContent"></div>
+            <div class="chart-container" id="chartContainer" style="display:none;">
+                <div class="chart-title">📊 تطور أدائك في المحاولات السابقة</div>
+                <canvas id="chartCanvas" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-score" id="resultScore">0.0 / 100</div>
+            <div class="result-detail" id="resultDetail"></div>
+            <div class="result-fb" id="resultFB"></div>
+        </div>
+        <div class="footer no-print">💡 اختر إجابة وسيظهر التصحيح فوراً. عند الخطأ، تظهر الإجابة الصحيحة بجانب الخيار.</div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  بنك الأسئلة (200 سؤال) - الفصول 1-4
+        // ============================================================
+        const BANK = [];
+
+        // ---- الفصل الأول (50 سؤالاً) ----
+        const ch1 = [
+            { t: 'tf', q: 'SDLC تتكون من 6 عمليات أساسية.', a: 1 },
+            { t: 'tf', q: 'التطوير التكراري يبني النظام دفعة واحدة.', a: 0 },
+            { t: 'tf', q: 'تحليل النظم يحدد ما يجب أن يفعله النظام.', a: 1 },
+            { t: 'tf', q: 'التصميم يصف كيفية تحقيق المتطلبات.', a: 1 },
+            { t: 'tf', q: 'وثيقة الرؤية تحتوي على كود برمجي.', a: 0 },
+            { t: 'tf', q: 'نظام المعارض يحتاج للعمل دون إنترنت.', a: 1 },
+            { t: 'tf', q: 'البرمجة في WBS تستغرق وقتاً أقل من التصميم.', a: 0 },
+            { t: 'tf', q: 'التكرار (Iteration) له نتيجة مكتملة.', a: 1 },
+            { t: 'tf', q: 'مخطط الفئات يشمل فقط طبقة العرض.', a: 0 },
+            { t: 'tf', q: 'حالات الاستخدام لا تشمل تصميم الشاشات.', a: 1 },
+            { t: 'tf', q: 'المشروع له بداية ونهاية.', a: 1 },
+            { t: 'tf', q: 'نظام SCM مبني على Visual Studio.', a: 0 },
+            { t: 'tf', q: 'النظام يجب أن يجمع صوراً للمنتجات.', a: 1 },
+            { t: 'tf', q: 'نظام الهاتف/البريد عمره 12 سنة.', a: 1 },
+            { t: 'tf', q: 'الفوائد التجارية تشمل سرعة اتخاذ القرار.', a: 1 },
+            { t: 'tf', q: 'مخطط النشاط يوضح سير العمل.', a: 1 },
+            { t: 'tf', q: 'قاعدة البيانات تحتوي على جدول مورد.', a: 1 },
+            { t: 'tf', q: 'المشروع لا يحتاج إلى تخطيط مسبق.', a: 0 },
+            { t: 'tf', q: 'التطوير التكراري يستخدم في المنهجية الرشيقة.', a: 1 },
+            { t: 'tf', q: 'وثيقة الرؤية تحدد المشكلة فقط.', a: 0 },
+            { t: 'tf', q: 'النظام الفرعي للموردين يحتوي على جهات اتصال.', a: 1 },
+            { t: 'tf', q: 'النموذج الأولي يسلم في نهاية المشروع.', a: 0 },
+            { t: 'tf', q: 'كل تكرار يشبه مشروعاً صغيراً.', a: 1 },
+            { t: 'tf', q: 'هيكل تقسيم العمل يوزع المهام.', a: 1 },
+            { t: 'tf', q: 'التحليل أرخص من التصميم.', a: 0 },
+            { t: 'mc', q: 'ما الهدف من وثيقة الرؤية؟', o: ['تحديد المشكلة والفوائد', 'كتابة الكود', 'تصميم قاعدة البيانات',
+                    'اختبار المستخدم'
+                ], a: 0 },
+            { t: 'mc', q: 'كم عدد العمليات الأساسية في SDLC؟', o: ['4', '6', '8', '10'], a: 1 },
+            { t: 'mc', q: 'ما نهج التطوير الذي ينمو قطعة بقطعة؟', o: ['تسلسلي', 'تكراري', 'مفاجئ', 'هيكلي'], a: 1 },
+            { t: 'mc', q: 'من قدرات نظام المعارض؟', o: ['العمل مستقلاً وWi-Fi', 'إصدار رواتب', 'إدارة بنوك', 'تصميم إعلانات'],
+                a: 0 },
+            { t: 'mc', q: 'في WBS، ما المهمة الأطول؟', o: ['مقابلة مدير', 'تحديد Use Cases', 'تصميم شاشات',
+                    'برمجة واختبار GUI'
+                ], a: 3 },
+            { t: 'mc', q: 'أي مما يلي ليس من مهام التصميم؟', o: ['تصميم شاشات', 'تصميم قاعدة بيانات',
+                    'تحديد متطلبات بالمقابلات', 'تفاصيل البرنامج'
+                ], a: 2 },
+            { t: 'mc', q: 'ما المقصود بالمشروع؟', o: ['مجهود ببداية ونهاية', 'نظام تشغيل', 'فريق العمل', 'الميزانية'],
+                a: 0 },
+            { t: 'mc', q: 'أي فائدة تجارية لنظام RMO؟', o: ['سرعة قرارات الشراء', 'تقليل الموظفين', 'إلغاء المعارض',
+                    'تحويل لحكومي'
+                ], a: 0 },
+            { t: 'mc', q: 'ماذا تمثل المساحة تحت المنحنى؟', o: ['الجهد المبذول', 'عدد المبرمجين', 'عدد الأخطاء',
+                    'الميزانية'
+                ], a: 0 },
+            { t: 'mc', q: 'ما العملية التي لا تُبذل في التكرار الأول؟', o: ['تحديد المشكلة', 'التخطيط', 'الاكتشاف',
+                    'نشر الحل'
+                ], a: 3 },
+            { t: 'mc', q: 'أي مما يلي مشكلة في وثيقة الرؤية؟', o: ['بطء الشبكة', 'صعوبة نقل صور المعرض', 'رواتب المبرمجين',
+                    'قدم نظام SCM'
+                ], a: 1 },
+            { t: 'mc', q: 'حالات الاستخدام تصف...؟', o: ['ما يجب أن يفعله النظام', 'الشيفرة البرمجية', 'الألوان',
+                    'قاعدة البيانات'
+                ], a: 0 },
+            { t: 'mc', q: 'فئات الكائنات الأساسية في نظام الموردين؟', o: ['مورد، جهة اتصال، منتج، صورة',
+                    'عميل، طلب، فاتورة', 'مدير، موظف، راتب', 'شاشة، زر، فأرة'
+                ], a: 0 },
+            { t: 'mc', q: 'مخطط قاعدة البيانات يوضح...؟', o: ['هيكل الجداول والعلاقات', 'واجهة المستخدم', 'خطة التسويق',
+                    'دليل التثبيت'
+                ], a: 0 },
+            { t: 'mc', q: 'الهدف الأساسي من WBS؟', o: ['تقدير الوقت والجهد', 'توزيع المكافآت', 'تصميم الشعار',
+                    'اختيار الاسم'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو التكرار (Iteration)؟', o: ['مشروع صغير', 'كود برمجي', 'فريق عمل', 'ميزانية'], a: 0 },
+            { t: 'mc', q: 'أي من التالي ليس من مخرجات المشروع؟', o: ['نظام معلومات', 'تقرير نهائي', 'دليل المستخدم',
+                    'فريق العمل'
+                ], a: 3 },
+            { t: 'mc', q: 'ما هو دور المحلل؟', o: ['فهم الاحتياجات', 'كتابة كود', 'إدارة الميزانية', 'تسويق النظام'],
+                a: 0 },
+            { t: 'mc', q: 'أي مما يلي من خصائص النظام الجيد؟', o: ['سهولة الاستخدام', 'تعقيد', 'بطء', 'تكلفة عالية'],
+                a: 0 },
+            { t: 'mc', q: 'ما الذي يحدده تحليل النظم؟', o: ['المتطلبات', 'لغة البرمجة', 'قاعدة البيانات', 'الخوادم'],
+                a: 0 },
+            { t: 'mc', q: 'أي مما يلي من فوائد التطوير التكراري؟', o: ['تغذية راجعة مبكرة', 'تسليم متأخر', 'تكاليف أعلى',
+                    'فشل سريع'
+                ], a: 0 },
+            { t: 'mc', q: 'في مخطط النشاط، ما هو شريط التزامن؟', o: ['يقسم المسارات', 'ينهي المخطط', 'يضيف نصاً',
+                    'يلغي العملية'
+                ], a: 0 },
+            { t: 'mc', q: 'متى يتم نشر الحل؟', o: ['بعد اختبار المستخدم', 'في بداية المشروع', 'أثناء التصميم', 'بدون اختبار'],
+                a: 0 },
+            { t: 'mc', q: 'أي من التالي ليس جزءاً من وثيقة الرؤية؟', o: ['المشكلة', 'القدرات', 'الفوائد',
+                    'خطة البرمجة التفصيلية'
+                ], a: 3 },
+            { t: 'mc', q: 'ما هو الغرض من المقابلات؟', o: ['جمع المتطلبات', 'كتابة كود', 'تصميم شاشات', 'اختبار النظام'],
+                a: 0 }
+        ];
+
+        // ---- الفصل الثاني (50 سؤالاً) ----
+        const ch2 = [
+            { t: 'tf', q: 'FURPS+ تشمل الوظيفية، قابلية الاستخدام، الموثوقية، الأداء، الأمان.', a: 1 },
+            { t: 'tf', q: 'متطلبات الأداء تهتم بسهولة الاستخدام.', a: 0 },
+            { t: 'tf', q: 'أصحاب المصلحة الخارجيين يشملون العملاء.', a: 1 },
+            { t: 'tf', q: 'الأسئلة المفتوحة تشجع على الشرح.', a: 1 },
+            { t: 'tf', q: 'الأسئلة المغلقة تعطي إجابات محددة.', a: 1 },
+            { t: 'tf', q: 'المسار المائي (Swimlane) يمثل الوكيل.', a: 1 },
+            { t: 'tf', q: 'شريط التزامن يدمج المسارات المتزامنة.', a: 1 },
+            { t: 'tf', q: 'نظام الهاتف/البريد مبني على Java.', a: 0 },
+            { t: 'tf', q: 'متطلبات الأمان تشمل التشفير.', a: 1 },
+            { t: 'tf', q: 'قائمة العناصر المفتوحة تسجل الأسئلة العالقة.', a: 1 },
+            { t: 'tf', q: 'النماذج في التحليل تكون نصية فقط.', a: 0 },
+            { t: 'tf', q: 'UML هي لغة نمذجة موحدة.', a: 1 },
+            { t: 'tf', q: 'المتطلبات غير الوظيفية تصف العمليات.', a: 0 },
+            { t: 'tf', q: 'البحث عن البائعين يساعد في معرفة الحلول الجاهزة.', a: 1 },
+            { t: 'tf', q: 'المديرون التنفيذيون هم المستخدمون النهائيون.', a: 0 },
+            { t: 'tf', q: 'مخطط النشاط يستخدم لسير العمل.', a: 1 },
+            { t: 'tf', q: 'الموثوقية تعني سرعة النظام.', a: 0 },
+            { t: 'tf', q: 'قابلية الاستخدام تعني سهولة التعلم.', a: 1 },
+            { t: 'tf', q: 'متطلبات الدعم تصف كيفية التثبيت.', a: 1 },
+            { t: 'tf', q: 'المتطلبات الفيزيائية تتعلق بحجم الجهاز.', a: 1 },
+            { t: 'tf', q: 'أصحاب المصلحة الداخليين هم موظفو الشركة.', a: 1 },
+            { t: 'tf', q: 'الاستبيانات تجمع بيانات كمية.', a: 1 },
+            { t: 'tf', q: 'نظام CSS في RMO محدود التكامل.', a: 1 },
+            { t: 'tf', q: 'نظام SCM عمره 5 سنوات.', a: 1 },
+            { t: 'tf', q: 'المتطلبات الوظيفية تحدد ماذا يفعل النظام.', a: 1 },
+            { t: 'mc', q: 'أي مما يلي من متطلبات الموثوقية؟', o: ['سلوك النظام عند الانقطاع', 'سرعة الاستجابة',
+                    'سهولة التعلم', 'التكامل'
+                ], a: 0 },
+            { t: 'mc', q: 'من أصحاب المصلحة الداخليين؟', o: ['موظفو المستودع', 'الزبائن', 'FedEx', 'البنك'], a: 0 },
+            { t: 'mc', q: 'المتطلبات الفيزيائية تعني...؟', o: ['خصائص الأجهزة', 'أمن الشبكة', 'لغة البرمجة', 'واجهة المستخدم'],
+                a: 0 },
+            { t: 'mc', q: 'الغرض من الاستبيانات؟', o: ['جمع بيانات كمية', 'مقابلات معمقة', 'مراقبة السلوك', 'تصميم الواجهة'],
+                a: 0 },
+            { t: 'mc', q: 'ماذا تسجل في قائمة العناصر المفتوحة؟', o: ['عنوان المشكلة والتاريخ', 'الكود', 'اسم المبرمج',
+                    'الميزانية'
+                ], a: 0 },
+            { t: 'mc', q: 'الفرق بين المفتوحة والمغلقة؟', o: ['مفتوحة للشرح / مغلقة لمحدد', 'عكس ذلك', 'لا فرق',
+                    'حسب المدير'
+                ], a: 0 },
+            { t: 'mc', q: 'أي نظام في RMO محدود التكامل؟', o: ['SCM', 'الهاتف/البريد', 'CSS', 'الرواتب'], a: 2 },
+            { t: 'mc', q: 'الهدف من البحث عن البائعين؟', o: ['معرفة حلول جاهزة', 'توظيف', 'شراء أجهزة', 'رواتب'], a: 0 },
+            { t: 'mc', q: 'أي متطلب يصف التثبيت والتحديث؟', o: ['الدعم', 'الواجهة', 'الأداء', 'الأمان'], a: 0 },
+            { t: 'mc', q: 'رمز نقطة القرار في مخطط النشاط؟', o: ['معين', 'مستطيل', 'دائرة', 'مربع'], a: 0 },
+            { t: 'mc', q: 'مثال على متطلبات التنفيذ؟', o: ['بروتوكول SOAP', 'مساحة 30 ميجا', 'لون أخضر', 'يعمل على أندرويد'],
+                a: 0 },
+            { t: 'mc', q: 'فئات النطاق (Domain Classes) هي...؟', o: ['بيانات أساسية', 'فئات الواجهة', 'فئات الاتصال',
+                    'أسماء مبرمجين'
+                ], a: 0 },
+            { t: 'mc', q: 'الغرض من تحديد الأولويات؟', o: ['تصنيفها (ضروري، مهم، جميل)', 'تجاهل الصعب', 'ترتيب أبجدي',
+                    'لإدارة الجودة'
+                ], a: 0 },
+            { t: 'mc', q: 'سير العمل في مخطط النشاط يصف...؟', o: ['تسلسل الخطوات', 'قاعدة البيانات', 'قائمة وظائف',
+                    'خطة زمنية'
+                ], a: 0 },
+            { t: 'mc', q: 'مخطط نشاط RMO يوضح تقسيم العمل بين من؟', o: ['مبيعات، مشتريات، مهندس، إنتاج', 'مبرمجين',
+                    'مدير وموظفين', 'نظام وقاعدة بيانات'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو FURPS؟', o: ['اختصار للمتطلبات غير الوظيفية', 'لغة برمجة', 'أداة رسم', 'نظام تشغيل'],
+                a: 0 },
+            { t: 'mc', q: 'ما هو الـ + في FURPS+؟', o: ['قيود التصميم والتنفيذ', 'سرعة إضافية', 'أمان إضافي', 'وظائف إضافية'],
+                a: 0 },
+            { t: 'mc', q: 'من هم أصحاب المصلحة؟', o: ['جميع الأطراف المعنية', 'المبرمجين فقط', 'المدراء فقط', 'العملاء فقط'],
+                a: 0 },
+            { t: 'mc', q: 'ما هو الغرض من المراقبة (Observation)؟', o: ['فهم الوضع الحالي', 'كتابة تقرير', 'تصميم شاشات',
+                    'اختبار النظام'
+                ], a: 0 },
+            { t: 'mc', q: 'أي من التالي من متطلبات الأمان؟', o: ['تشفير البيانات', 'سرعة الاستجابة', 'سهولة الاستخدام',
+                    'تكامل الأنظمة'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو النظام الفرعي؟', o: ['جزء من النظام', 'نظام كامل', 'جهاز حاسوب', 'شاشة'], a: 0 },
+            { t: 'mc', q: 'أي مما يلي من مهام المحلل؟', o: ['إجراء المقابلات', 'برمجة', 'تسويق', 'محاسبة'], a: 0 },
+            { t: 'mc', q: 'ما هي الوثيقة التي تحدد أهداف المشروع؟', o: ['وثيقة الرؤية', 'عقد البرمجة', 'دليل المستخدم',
+                    'تقرير الاختبار'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي غير وظيفي؟', o: ['الأداء', 'إضافة منتج', 'بحث', 'حذف'], a: 0 },
+            { t: 'mc', q: 'ما هو السبب في استخدام النماذج؟', o: ['لتوثيق المتطلبات', 'للكتابة', 'للطباعة', 'للتزيين'],
+                a: 0 }
+        ];
+
+        // ---- الفصل الثالث (50 سؤالاً) ----
+        const ch3 = [
+            { t: 'tf', q: 'حالة الاستخدام نشاط ينفذه النظام.', a: 1 },
+            { t: 'tf', q: 'تقنية أهداف المستخدم تعتمد على مقابلة المستخدمين.', a: 1 },
+            { t: 'tf', q: 'الحدث الزمني يحدث نتيجة لوقت محدد.', a: 1 },
+            { t: 'tf', q: 'CRUD تعني Create, Read, Update, Delete.', a: 1 },
+            { t: 'tf', q: 'علاقة Extend تعني إجبارية.', a: 0 },
+            { t: 'tf', q: 'افتراض التكنولوجيا المثالية يتجاهل تسجيل الدخول.', a: 1 },
+            { t: 'tf', q: 'حدود الأتمتة تفصل بين النظام والفاعلين.', a: 1 },
+            { t: 'tf', q: 'EBP هي عملية يقوم بها شخص واحد.', a: 1 },
+            { t: 'tf', q: 'تحلل الحدث أشمل من أهداف المستخدم.', a: 1 },
+            { t: 'tf', q: 'حالة الحدث تُعرف بالحدث الداخلي.', a: 1 },
+            { t: 'tf', q: 'في Include، السهم من الأساسية إلى الفرعية.', a: 0 },
+            { t: 'tf', q: 'CRUD تستخدم للتحقق من صحة الحالات.', a: 1 },
+            { t: 'tf', q: 'الوصف المختصر لحالة الاستخدام جملة واحدة.', a: 1 },
+            { t: 'tf', q: 'الفاعل (Actor) يمكن أن يكون نظاماً خارجياً.', a: 1 },
+            { t: 'tf', q: 'مخططات متعددة لحالات الاستخدام ممارسة جيدة.', a: 1 },
+            { t: 'tf', q: 'الحدث الخارجي سببه مستخدم أو نظام آخر.', a: 1 },
+            { t: 'tf', q: 'الحدث الزمني يحتاج إلى تدخل بشري.', a: 0 },
+            { t: 'tf', q: 'حالة الاستخدام تحدد المتطلبات الوظيفية.', a: 1 },
+            { t: 'tf', q: 'تقنية تحلل الحدث تحدد الأحداث فقط.', a: 0 },
+            { t: 'tf', q: 'UML تستخدم لرسم حالات الاستخدام.', a: 1 },
+            { t: 'tf', q: 'العلاقة بين الفاعل وحالة الاستخدام تسمى ارتباط.', a: 1 },
+            { t: 'tf', q: 'المستخدمون يساعدون في تحديد الحالات.', a: 1 },
+            { t: 'tf', q: 'كل مشروع له حالات استخدام مختلفة.', a: 1 },
+            { t: 'tf', q: 'CRUD تستخدم لقاعدة البيانات فقط.', a: 0 },
+            { t: 'tf', q: 'Include تعني إدراج حالة داخل أخرى.', a: 1 },
+            { t: 'mc', q: 'ما التقنية الأكثر شمولاً لتحديد الحالات؟', o: ['تحلل الحدث', 'أهداف المستخدم', 'FURPS+',
+                    'النمذجة'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هي العملية التجارية الأساسية (EBP)؟', o: ['شخص واحد في مكان واحد', 'فريق في عدة مكاتب',
+                    'تلقائية', 'معقدة'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي حدث خارجي؟', o: ['وكيل يضغط بحث', 'تقرير أسبوعي', 'انخفاض المخزون', 'نسخ احتياطي'],
+                a: 0 },
+            { t: 'mc', q: 'في CRUD، أي حرف يعني "قراءة"؟', o: ['R', 'C', 'U', 'D'], a: 0 },
+            { t: 'mc', q: 'ما العلاقة التي تربط "تسجيل الدخول" بـ "البحث"؟', o: ['Include', 'Extend', 'تعميم', 'ارتباط'],
+                a: 0 },
+            { t: 'mc', q: 'ما رمز الفاعل (Actor)؟', o: ['شخص عصوي', 'مستطيل', 'بيضاوي', 'معين'], a: 0 },
+            { t: 'mc', q: 'لماذا نستخدم تقنية CRUD؟', o: ['للتحقق من تغطية العمليات', 'لكتابة الأكواد', 'لتصميم الواجهة',
+                    'لاختيار اللغة'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي حدث زمني؟', o: ['توليد فواتير الساعة 12', 'إرجاع سلعة', 'تحديث مورد',
+                    'انخفاض المخزون'
+                ], a: 0 },
+            { t: 'mc', q: 'الغرض من علاقة Extend؟', o: ['سلوك اختياري', 'احتواء إجباري', 'تمثيل عدة مستخدمين',
+                    'تقسيم النظام'
+                ], a: 0 },
+            { t: 'mc', q: 'افتراض التكنولوجيا المثالية يعني...؟', o: ['تجاهل تحكمات النظام', 'مبرمجون بلا أخطاء',
+                    'أجهزة سريعة', 'مستخدمون بلا أخطاء'
+                ], a: 0 },
+            { t: 'mc', q: 'كيف تسمى حالة الاستخدام بشكل صحيح؟', o: ['فعل + اسم', 'اسم + صفة', 'اسم فقط', 'جملة شرطية'],
+                a: 0 },
+            { t: 'mc', q: 'في تقنية أهداف المستخدم، الخطوة الأولى؟', o: ['تحديد المستخدمين', 'كتابة الكود',
+                    'تصميم قاعدة بيانات', 'اختبار'
+                ], a: 0 },
+            { t: 'mc', q: 'الفاعلون الرئيسيون في نظام الموردين؟', o: ['وكيل الشراء ومدير المشتريات', 'مدير تنفيذي',
+                    'زبائن', 'مبرمجين'
+                ], a: 0 },
+            { t: 'mc', q: 'أي حدث يُستثنى بافتراض التكنولوجيا المثالية؟', o: ['تغيير كلمة المرور', 'إضافة منتج',
+                    'بحث عن مورد', 'تقرير المبيعات'
+                ], a: 0 },
+            { t: 'mc', q: 'حدود الأتمتة في مخطط حالة الاستخدام هي...؟', o: ['مستطيل يحيط بالحالات', 'حدود الشركة',
+                    'حدود السرعة', 'صلاحيات'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو الغرض من مخطط حالة الاستخدام؟', o: ['توثيق الوظائف', 'تصميم قاعدة البيانات',
+                    'كتابة الأكواد', 'توزيع المهام'
+                ], a: 0 },
+            { t: 'mc', q: 'أي من التالي ليس من أنواع الأحداث؟', o: ['داخلي', 'خارجي', 'زمني', 'حالة'], a: 0 },
+            { t: 'mc', q: 'ما هو CRUD في سياق التحليل؟', o: ['فحص تغطية العمليات', 'لغة برمجة', 'نظام تشغيل', 'أداة رسم'],
+                a: 0 },
+            { t: 'mc', q: 'ما هو الـ Actor في UML؟', o: ['المستخدم أو النظام الخارجي', 'الشاشة', 'قاعدة البيانات',
+                    'الخادم'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي من فوائد تحلل الحدث؟', o: ['اكتشاف الأحداث الزمنية', 'تصميم واجهة', 'كتابة كود',
+                    'تسويق'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو الفرق بين Include و Extend؟', o: ['Include إجباري، Extend اختياري', 'العكس',
+                    'كلاهما إجباري', 'كلاهما اختياري'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي يشير إلى حالة استخدام؟', o: ['بحث عن مورد', 'قاعدة بيانات', 'شاشة دخول', 'خادم'],
+                a: 0 },
+            { t: 'mc', q: 'ما هو دور المحلل في تحديد الحالات؟', o: ['مقابلة المستخدمين', 'كتابة كود', 'تثبيت خوادم',
+                    'تصميم ألوان'
+                ], a: 0 },
+            { t: 'mc', q: 'أي من التالي يعد حدثاً داخلياً (State)؟', o: ['انخفاض المخزون', 'ضغط زر', 'تقرير شهري',
+                    'تسجيل دخول'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو افتراض التكنولوجيا المثالية؟', o: ['تجاهل التعقيدات التقنية مؤقتاً', 'أجهزة مثالية',
+                    'برمجيات خالية من الأخطاء', 'مستخدمون مثاليون'
+                ], a: 0 }
+        ];
+
+        // ---- الفصل الرابع (50 سؤالاً) ----
+        const ch4 = [
+            // صح/خطأ (25)
+            { t: 'tf', q: 'مجال المشكلة (Problem Domain) هو الجزء من الواقع الذي يعمل فيه النظام.', a: 1 },
+            { t: 'tf', q: 'تقنية العصف الذهني تعتمد فقط على تحليل الأسماء.', a: 0 },
+            { t: 'tf', q: 'تقنية الاسم (Noun Technique) تحدد الأسماء في وصف النظام لتحديد الفئات.', a: 1 },
+            { t: 'tf', q: 'كل اسم يظهر في وصف النظام يجب أن يكون فئة نطاق.', a: 0 },
+            { t: 'tf', q: 'السمة (Attribute) هي خاصية تصف الفئة.', a: 1 },
+            { t: 'tf', q: 'المعرف (المفتاح) هو سمة تحدد كل كائن بشكل فريد.', a: 1 },
+            { t: 'tf', q: 'الارتباط الثنائي (Binary Association) يربط بين ثلاث فئات.', a: 0 },
+            { t: 'tf', q: 'التعددية (Multiplicity) تحدد عدد الكائنات التي يمكن أن تشارك في الارتباط.', a: 1 },
+            { t: 'tf', q: 'مخطط فئة نموذج النطاق (Domain Model Class Diagram) يحتوي على دوال (Methods).', a: 0 },
+            { t: 'tf', q: 'ERD يظهر علاقات الوراثة (التعميم/التخصص).', a: 0 },
+            { t: 'tf', q: 'فئة الرابطة (Association Class) هي فئة لها سماتها الخاصة وتستخدم لربط فئات أخرى.', a: 1 },
+            { t: 'tf', q: 'عالقة التعميم/التخصص تعني أن الفئة الفرعية ترث من الفئة الفائقة.', a: 1 },
+            { t: 'tf', q: 'التجميع (Aggregation) هو نوع من علاقة الجزء-الكل.', a: 1 },
+            { t: 'tf', q: 'التركيب (Composition) هو نوع ضعيف من التجميع حيث يمكن للجزء أن يوجد بدون الكل.', a: 0 },
+            { t: 'tf', q: 'في تقنية الاسم، نقوم بتصفية الأسماء لاستبعاد المرادفات والمخرجات.', a: 1 },
+            { t: 'tf', q: 'المدخلات (مثل طلب التغيير) تحتاج إلى حفظها كفئة منفصلة دائماً.', a: 0 },
+            { t: 'tf', q: 'السمة المركبة (Compound Attribute) هي سمة تتكون من عدة أجزاء.', a: 1 },
+            { t: 'tf', q: 'تدوين الجمل (Camelback notation) يستخدم لتسمية الفئات والسمات في UML.', a: 1 },
+            { t: 'tf', q: 'شبكة الدلالات (Semantic Net) توضح حالات المثيلات وعلاقاتها.', a: 1 },
+            { t: 'tf', q: 'الارتباط الثلاثي (Ternary Association) يربط بين ثلاث فئات.', a: 1 },
+            { t: 'tf', q: 'الحد الأدنى للتعددية (0) يعني أن الارتباط إلزامي.', a: 0 },
+            { t: 'tf', q: 'مخطط الفئة (Class Diagram) يستخدم في التصميم بينما ERD يستخدم في التحليل.', a: 0 },
+            { t: 'tf', q: 'فئة الصلبة (Concrete Class) يمكن إنشاء كائنات منها مباشرة.', a: 1 },
+            { t: 'tf', q: 'الفئة المجردة (Abstract Class) يمكن إنشاء كائنات منها.', a: 0 },
+            { t: 'tf', q: 'في عالقة التجميع، رمز الماسة المجوفة يوضع عند طرف الكل (Whole).', a: 1 },
+            // اختيار من متعدد (25)
+            { t: 'mc', q: 'ما هي تقنية تحديد الأشياء التي تعتمد على العصف الذهني مع المستخدمين؟', o: ['العصف الذهني',
+                    'تقنية الاسم', 'تحلل الحدث', 'أهداف المستخدم'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هي تقنية تحديد الأشياء التي تعتمد على استخراج الأسماء من المستندات؟', o: ['العصف الذهني',
+                    'تقنية الاسم', 'تحلل الحدث', 'النمذجة'
+                ], a: 1 },
+            { t: 'mc', q: 'ما هو مفهوم "الشيء" في منهجية UML؟', o: ['الفئة (Class)', 'الكيان (Entity)', 'الجدول (Table)',
+                    'السجل (Record)'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو مفهوم "الشيء" في تحليل قواعد البيانات التقليدي؟', o: ['الفئة (Class)', 'الكيان (Entity)',
+                    'السمة (Attribute)', 'العلاقة (Relationship)'
+                ], a: 1 },
+            { t: 'mc', q: 'أي مما يلي يعتبر مثالاً على السمة (Attribute)؟', o: ['لون المنتج', 'المورد', 'الطلب',
+                    'جهة الاتصال'
+                ], a: 0 },
+            { t: 'mc', q: 'أي مما يلي يعتبر فئة نطاق (Domain Class)؟', o: ['السعر', 'تاريخ الطلب', 'المورد', 'رقم الهاتف'],
+                a: 2 },
+            { t: 'mc', q: 'ما هو الرمز المستخدم لإظهار التعددية "واحد أو أكثر" في ترميز UML؟', o: ['1..*', '0..*', '1..1',
+                    '0..1'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو الرمز المستخدم لإظهار التعددية "صفر أو واحد" في ترميز UML؟', o: ['1..*', '0..*', '1..1',
+                    '0..1'
+                ], a: 3 },
+            { t: 'mc', q: 'ما هو المصطلح الآخر للتعددية (Multiplicity) في تحليل قواعد البيانات؟', o: ['الكاردينالية',
+                    'الوراثة', 'التجميع', 'التركيب'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو مخطط الفئة الذي يوضح فئات النطاق والسمات والعلاقات فقط (بدون دوال)؟', o: [
+                    'مخطط فئة نموذج النطاق', 'مخطط فئة التصميم', 'مخطط النشاط', 'مخطط حالة الاستخدام'
+                ], a: 0 },
+            { t: 'mc', q: 'ما الفرق الرئيسي بين Class Diagram و ERD من حيث الوراثة؟', o: [
+                    'Class Diagram يظهر الوراثة، ERD لا يظهرها', 'ERD يظهر الوراثة، Class Diagram لا يظهرها',
+                    'كلاهما يظهر الوراثة', 'كلاهما لا يظهر الوراثة'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو نوع العلاقة التي تربط فئة الموظف بنفسها (مدير ومرؤوس)؟', o: ['ارتباط أحادي (Unary)',
+                    'ارتباط ثنائي (Binary)', 'ارتباط ثلاثي (Ternary)', 'ارتباط رباعي'
+                ], a: 0 },
+            { t: 'mc', q: 'ماذا يعني الحد الأدنى للتعددية "0" في الارتباط؟', o: ['اختياري', 'إلزامي', 'واحد فقط',
+                    'غير محدد'
+                ], a: 0 },
+            { t: 'mc', q: 'ماذا يعني الحد الأدنى للتعددية "1" في الارتباط؟', o: ['اختياري', 'إلزامي', 'صفر أو أكثر',
+                    'غير محدد'
+                ], a: 1 },
+            { t: 'mc', q: 'ما هي فئة التجميع (Aggregation)؟', o: ['علاقة جزء-كل ضعيفة', 'علاقة جزء-كل قوية',
+                    'علاقة بين فئتين فقط', 'علاقة وراثة'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هي فئة التركيب (Composition)؟', o: ['علاقة جزء-كل ضعيفة', 'علاقة جزء-كل قوية',
+                    'علاقة بين فئتين فقط', 'علاقة وراثة'
+                ], a: 1 },
+            { t: 'mc', q: 'أي من التالي يعتبر سمة مركبة (Compound Attribute)؟', o: ['العنوان (شارع، مدينة، دولة)',
+                    'رقم الهاتف', 'الاسم الأول', 'المعرف'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو تدوين الجمل (Camelback) الصحيح لتسمية فئة "طالب دراسات عليا"؟', o: ['طالب_دراسات_عليا',
+                    'طالبدراساتعليا', 'طالب دراسات عليا', 'طالب-دراسات-عليا'
+                ], a: 1 },
+            { t: 'mc', q: 'أي من التالي يعتبر مثالاً على فئة صلبة (Concrete Class)؟', o: ['سيارة', 'مركبة', 'حيوان',
+                    'شخص'
+                ], a: 0 },
+            { t: 'mc', q: 'أي من التالي يعتبر مثالاً على فئة مجردة (Abstract Class)؟', o: ['سيارة', 'مركبة', 'تويوتا',
+                    'فورد'
+                ], a: 1 },
+            { t: 'mc', q: 'في ERD، ما هو رمز "قدم الغراب" (Crow\'s foot) الذي يشير إلى "واحد أو أكثر"؟', o: [
+                    'الرمز الذي يشبه قدم الغراب بثلاثة أصابع', 'خط مستقيم', 'دائرة', 'رأس سهم'
+                ], a: 0 },
+            { t: 'mc', q: 'ما الذي يمثله مخطط علاقة الكيان (ERD) بشكل أساسي؟', o: ['قاعدة البيانات والجداول',
+                    'فئات البرمجيات والدوال', 'حالات الاستخدام', 'مخطط النشاط'
+                ], a: 0 },
+            { t: 'mc', q: 'في شبكة الدلالات (Semantic Net)، ماذا توضح؟', o: ['حالات المثيلات وكيفية ارتباطها',
+                    'هيكل قاعدة البيانات', 'تسلسل العمليات', 'متطلبات الأداء'
+                ], a: 0 },
+            { t: 'mc', q: 'أي من العبارات التالية تصف عالقة "التعميم" (Generalization) بشكل صحيح؟', o: [
+                    'فئة عامة (فائقة) وفئات خاصة (فرعية)', 'علاقة بين شيئين فقط', 'علاقة بين ثلاثة أشياء',
+                    'علاقة جزء-كل'
+                ], a: 0 },
+            { t: 'mc', q: 'ما هو الغرض من تحديد "فئة الرابطة" (Association Class)؟', o: [
+                    'لتخزين سمات خاصة بالعلاقة نفسها', 'لتخزين سمات الفئة الأساسية', 'لربط فئتين فقط',
+                    'لحذف العلاقة'
+                ], a: 0 }
+        ];
+
+        // دمج جميع الفصول
+        BANK.push(...ch1, ...ch2, ...ch3, ...ch4);
+        BANK.forEach(q => {
+            if (ch1.includes(q)) q.chapter = 0;
+            else if (ch2.includes(q)) q.chapter = 1;
+            else if (ch3.includes(q)) q.chapter = 2;
+            else if (ch4.includes(q)) q.chapter = 3;
+        });
+
+        // ============================================================
+        //  منطق الاختبار الأساسي
+        // ============================================================
+        let currentQs = [],
+            userAns = [],
+            ansStatus = [],
+            curIdx = 0,
+            attempt = 1,
+            finished = false,
+            score = 0,
+            attemptsHistory = [];
+        let selectedChapter = 'all',
+            selectedCount = 30,
+            historyVisible = false;
+        let userName = '';
+
+        // إدارة اسم المستخدم
+        function loadUserName() {
+            try {
+                const raw = localStorage.getItem('examUserName');
+                if (raw) userName = raw;
+            } catch (e) { userName = ''; }
+            document.getElementById('userNameInput').value = userName;
+            updateDisplayUserName();
+        }
+
+        function saveUserName(name) {
+            userName = name.trim();
+            try {
+                localStorage.setItem('examUserName', userName);
+            } catch (e) {}
+            updateDisplayUserName();
+            if (document.getElementById('resultBox').classList.contains('show')) {
+                if (finished) { showResult(true); } else { showResultOnDemand(); }
+            }
+            if (historyVisible) { renderHistoryTable();
+                renderChart(); }
+        }
+
+        function updateDisplayUserName() {
+            document.getElementById('displayUserName').textContent = getUserName();
+        }
+
+        function getUserName() {
+            return userName || 'مستخدم';
+        }
+
+        // تحميل الإعدادات
+        function loadSettings() {
+            try {
+                const raw = localStorage.getItem('examSettings_v10');
+                if (raw) { const s = JSON.parse(raw); if (s.chapter !== undefined) selectedChapter = s.chapter; if (s
+                        .count !== undefined) selectedCount = s.count; }
+            } catch (e) {}
+            document.getElementById('chapterSelect').value = selectedChapter;
+            document.getElementById('countSelect').value = selectedCount;
+        }
+
+        function saveSettings() {
+            try { localStorage.setItem('examSettings_v10', JSON.stringify({ chapter: selectedChapter, count: selectedCount })); }
+            catch (e) {}
+        }
+
+        function getFilteredBank() {
+            if (selectedChapter === 'all') return BANK;
+            return BANK.filter(q => q.chapter === parseInt(selectedChapter));
+        }
+
+        function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+        function pickRandomQuestions(n) {
+            const pool = getFilteredBank();
+            if (pool.length === 0) return [];
+            return shuffle([...pool]).slice(0, Math.min(n, pool.length));
+        }
+
+        // سجل المحاولات
+        function loadAttemptsHistory() {
+            try {
+                const raw = localStorage.getItem('examAttemptsHistory_v10');
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0 && typeof parsed[0] === 'number') {
+                        attemptsHistory = parsed.map(p => ({ date: new Date().toLocaleString('ar-SA'), total: 0, correct: 0,
+                            percent: p }));
+                        saveAttemptsHistory();
+                    } else { attemptsHistory = parsed || []; }
+                } else { attemptsHistory = []; }
+            } catch (e) { attemptsHistory = []; }
+            updateStatsDisplay();
+        }
+
+        function saveAttemptsHistory() {
+            try { localStorage.setItem('examAttemptsHistory_v10', JSON.stringify(attemptsHistory)); } catch (e) {}
+            updateStatsDisplay();
+        }
+
+        function updateStatsDisplay() {
+            const c = attemptsHistory.length;
+            document.getElementById('attemptCount').textContent = c;
+            if (c === 0) { document.getElementById('averageScore').textContent = '0.00';
+                document.getElementById('bestScore').textContent = '0.00'; } else {
+                const sum = attemptsHistory.reduce((a, b) => a + b.percent, 0);
+                document.getElementById('averageScore').textContent = (sum / c).toFixed(2);
+                document.getElementById('bestScore').textContent = Math.max(...attemptsHistory.map(e => e.percent)).toFixed(2);
+            }
+        }
+
+        // حفظ واستعادة حالة الاختبار
+        function saveState() {
+            try {
+                localStorage.setItem('examState_v10', JSON.stringify({
+                    questions: currentQs,
+                    answers: userAns,
+                    status: ansStatus,
+                    index: curIdx,
+                    attempt,
+                    finished,
+                    score,
+                    chapter: selectedChapter,
+                    count: selectedCount
+                }));
+            } catch (e) {}
+        }
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem('examState_v10');
+                if (!raw) return false;
+                const s = JSON.parse(raw);
+                if (!s.questions || s.questions.length === 0 || s.chapter !== selectedChapter || s.count !== selectedCount)
+                    return false;
+                currentQs = s.questions;
+                userAns = s.answers;
+                ansStatus = s.status;
+                curIdx = s.index || 0;
+                attempt = s.attempt || 1;
+                finished = s.finished || false;
+                score = s.score || 0;
+                document.getElementById('attemptNum').textContent = attempt;
+                renderNav();
+                renderQ();
+                updateProg();
+                if (finished) showResult(true);
+                return true;
+            } catch (e) { return false; }
+        }
+
+        // إعادة تعيين الاختبار
+        function resetTest() {
+            const pool = getFilteredBank();
+            if (!pool.length) { alert('لا توجد أسئلة!'); return; }
+            const qCount = Math.min(selectedCount, pool.length);
+            currentQs = pickRandomQuestions(qCount);
+            userAns = new Array(currentQs.length).fill(-1);
+            ansStatus = new Array(currentQs.length).fill(false);
+            curIdx = 0;
+            finished = false;
+            score = 0;
+            attempt = parseInt(document.getElementById('attemptNum').textContent) + 1;
+            document.getElementById('attemptNum').textContent = attempt;
+            document.getElementById('resultBox').classList.remove('show');
+            document.getElementById('historyPanel').classList.remove('show');
+            historyVisible = false;
+            document.getElementById('historyToggleBtn').textContent = '📋 عرض التاريخ';
+            const chLabel = selectedChapter === 'all' ? 'جميع الفصول' : `الفصل ${parseInt(selectedChapter)+1}`;
+            document.getElementById('chapterBadge').textContent = `🎯 ${chLabel}`;
+            renderNav();
+            renderQ();
+            updateProg();
+            saveState();
+        }
+
+        function hardReset() {
+            if (confirm('مسح جميع المحاولات؟')) {
+                localStorage.removeItem('examState_v10');
+                localStorage.removeItem('examAttemptsHistory_v10');
+                attemptsHistory = [];
+                saveAttemptsHistory();
+                const pool = getFilteredBank();
+                const qCount = Math.min(selectedCount, pool.length);
+                currentQs = pickRandomQuestions(qCount);
+                userAns = new Array(currentQs.length).fill(-1);
+                ansStatus = new Array(currentQs.length).fill(false);
+                curIdx = 0;
+                finished = false;
+                score = 0;
+                attempt = 1;
+                document.getElementById('attemptNum').textContent = attempt;
+                document.getElementById('resultBox').classList.remove('show');
+                document.getElementById('historyPanel').classList.remove('show');
+                historyVisible = false;
+                document.getElementById('historyToggleBtn').textContent = '📋 عرض التاريخ';
+                renderNav();
+                renderQ();
+                updateProg();
+                saveState();
+            }
+        }
+
+        // عرض الأسئلة والتنقل
+        function renderNav() {
+            const c = document.getElementById('navNums');
+            c.innerHTML = '';
+            currentQs.forEach((q, i) => {
+                const b = document.createElement('button');
+                b.className = 'num-btn';
+                b.textContent = i + 1;
+                if (i === curIdx) b.classList.add('active');
+                if (ansStatus[i]) {
+                    b.classList.add('answered');
+                    if (finished) {
+                        if (userAns[i] === q.a) b.classList.add('correct-ans');
+                        else b.classList.add('wrong-ans');
+                    }
+                }
+                b.addEventListener('click', () => { if (!finished) { curIdx = i;
+                        renderQ();
+                        updateProg(); } });
+                c.appendChild(b);
+            });
+        }
+
+        // ============================================================
+        //  التعديل الجديد: عرض الإجابة الصحيحة عند الخطأ
+        // ============================================================
+        function renderQ() {
+            if (!currentQs.length) { document.getElementById('qText').textContent = 'لا توجد أسئلة.';
+                document.getElementById('optsContainer').innerHTML = ''; return; }
+            const q = currentQs[curIdx];
+            document.getElementById('qNum').textContent = `السؤال ${curIdx + 1} / ${currentQs.length}`;
+            document.getElementById('qType').textContent = q.t === 'tf' ? 'صح / خطأ' : 'اختيار من متعدد';
+            document.getElementById('qText').textContent = q.q;
+
+            const container = document.getElementById('optsContainer');
+            container.innerHTML = '';
+            const selected = userAns[curIdx];
+            const isAnswered = ansStatus[curIdx];
+
+            q.o = q.o || (q.t === 'tf' ? ['خطأ', 'صحيح'] : []);
+            q.o.forEach((text, idx) => {
+                const div = document.createElement('div');
+                div.className = 'opt';
+                if (isAnswered || finished) {
+                    div.classList.add('disabled');
+                    if (idx === q.a) div.classList.add('correct');
+                    if (idx === selected && idx !== q.a) div.classList.add('wrong');
+                }
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'q';
+                radio.value = idx;
+                radio.checked = (selected === idx);
+                radio.disabled = (isAnswered || finished);
+                radio.addEventListener('change', () => {
+                    if (!finished && !ansStatus[curIdx]) {
+                        userAns[curIdx] = idx;
+                        ansStatus[curIdx] = true;
+                        // إعادة رسم السؤال مباشرة لإظهار التصحيح
+                        renderQ();
+                        updateProg();
+                        renderNav();
+                        saveState();
+                        // الانتقال التلقائي بعد تأخير بسيط
+                        setTimeout(() => {
+                            if (curIdx < currentQs.length - 1) { curIdx++;
+                                renderQ();
+                                updateProg(); } else {
+                                let all = true;
+                                for (let i = 0; i < currentQs.length; i++) { if (!ansStatus[i]) all = false; }
+                                if (all) showResult(false);
+                            }
+                        }, 1000); // تأخير 1 ثانية لقراءة التصحيح
+                    }
+                });
+                const label = document.createElement('label');
+                let labelText = text;
+
+                // ============================================
+                // المنطق الجديد: إذا كان السؤال محلولاً والاختيار خاطئ، أظهر الصحيح بجانبه
+                // ============================================
+                if (isAnswered) {
+                    if (idx === q.a) {
+                        labelText = text + ' ✅';
+                    } else if (idx === selected && idx !== q.a) {
+                        labelText = text + ` ❌ (الإجابة الصحيحة: ${q.o[q.a]})`;
+                    }
+                }
+                label.textContent = labelText;
+                div.appendChild(radio);
+                div.appendChild(label);
+                container.appendChild(div);
+            });
+            document.getElementById('prevBtn').disabled = (curIdx === 0 || finished);
+            document.getElementById('nextBtn').disabled = (curIdx === currentQs.length - 1 || finished);
+            document.getElementById('resultBox').classList.remove('show');
+            renderNav();
+        }
+
+        function updateProg() {
+            let answered = 0,
+                correct = 0;
+            currentQs.forEach((q, i) => { if (ansStatus[i]) { answered++; if (userAns[i] === q.a) correct++; } });
+            const total = currentQs.length || 1;
+            const pct = (correct / total) * 100;
+            document.getElementById('progressFill').style.width = `${(answered/total)*100}%`;
+            document.getElementById('totalQ').textContent = total;
+            document.getElementById('liveScore').textContent = pct.toFixed(1);
+            saveState();
+        }
+
+        // عرض النتيجة
+        function showResult(silent = false) {
+            if (!currentQs.length) return;
+            if (finished && silent) {
+                const box = document.getElementById('resultBox');
+                box.classList.add('show');
+                document.getElementById('resultScore').innerHTML = `${score.toFixed(1)} / 100`;
+                const avg = attemptsHistory.length ? (attemptsHistory.reduce((a, b) => a + b.percent, 0) / attemptsHistory
+                    .length).toFixed(2) : '0.00';
+                const name = getUserName();
+                document.getElementById('resultDetail').textContent =
+                    `👤 ${name} | نسبة الإجابات الصحيحة: ${score.toFixed(1)}% — ${score>=80?'🌟 ممتاز!':score>=60?'✅ جيد':'📚 راجع'}  |  📊 المعدل التراكمي (${attemptsHistory.length} محاولات): ${avg}`;
+                renderQ();
+                return;
+            }
+            if (finished) return;
+
+            let correct = 0,
+                total = currentQs.length,
+                details = [];
+            currentQs.forEach((q, i) => {
+                const ans = userAns[i];
+                if (ans === -1) details.push(`❌ س${i+1}: لم تجب.`);
+                else if (ans === q.a) { correct++;
+                    details.push(`✅ س${i+1}: صحيح.`); } else {
+                    details.push(`❌ س${i+1}: إجابتك "${q.o[ans]}"، والصحيح "${q.o[q.a]}".`);
+                }
+                ansStatus[i] = true;
+            });
+            const percentage = (correct / total) * 100;
+            score = percentage;
+            finished = true;
+            const now = new Date();
+            attemptsHistory.push({ date: now.toLocaleString('ar-SA', { hour12: false }), total, correct, percent: percentage });
+            saveAttemptsHistory();
+
+            const box = document.getElementById('resultBox');
+            box.classList.add('show');
+            document.getElementById('resultScore').innerHTML = `${percentage.toFixed(1)} / 100`;
+            const avg = attemptsHistory.length ? (attemptsHistory.reduce((a, b) => a + b.percent, 0) / attemptsHistory.length)
+                .toFixed(2) : '0.00';
+            const name = getUserName();
+            document.getElementById('resultDetail').textContent =
+                `👤 ${name} | نسبة الإجابات الصحيحة: ${percentage.toFixed(1)}% — ${percentage>=80?'🌟 ممتاز!':percentage>=60?'✅ جيد':'📚 راجع'}  |  📊 المعدل التراكمي (${attemptsHistory.length} محاولات): ${avg}`;
+            document.getElementById('resultFB').innerHTML = details.map(d => `<div class="fb-item">${d}</div>`).join('');
+            renderQ();
+            updateProg();
+            saveState();
+        }
+
+        function showResultOnDemand() {
+            if (!currentQs.length) return;
+            if (!finished) {
+                let correct = 0,
+                    total = currentQs.length;
+                currentQs.forEach((q, i) => { if (ansStatus[i] && userAns[i] === q.a) correct++; });
+                const pct = (correct / total) * 100;
+                const box = document.getElementById('resultBox');
+                box.classList.add('show')
